@@ -107,7 +107,7 @@ h1{
 }
 
 .book-card .highlighted {
-	margin: 10px 15px;
+	/* margin: 10px 15px; */
 	font-size: 0.9rem;
 	background-color: yellow;
 	padding: 5px 10px;
