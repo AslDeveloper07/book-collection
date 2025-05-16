@@ -135,6 +135,96 @@ const books = [
     },
   },
   {
+    title: "The Clean Coder: A Code of Conduct for Professional Programmers",
+    author: ["Robert C. Martin"],
+    imageSrc: "./devbooks.webp",
+
+    publisher: "Prentice Hall",
+    publicationDate: "2011-05-16",
+    edition: 1,
+    keywords: ["programming", "software development", "professionalism"],
+    pages: 224,
+    format: "hardcover",
+    ISBN: "9780137081073",
+    language: "English",
+    programmingLanguage: "Java",
+    onlineContent: true,
+    thirdParty: {
+      goodreads: {
+        rating: 4.22,
+        ratingsCount: 6481,
+        reviewsCount: 245,
+        fiveStarRatingCount: 4009,
+        oneStarRatingCount: 210,
+      },
+    },
+    highlighted: false,
+  },
+  {
+    title: "Computer Systems: A Programmer's Perspective",
+    author: ["Randal E. Bryant", "David Richard O'Hallaron"],
+    imageSrc: "./devbooks.webp",
+    publisher: "Prentice Hall",
+    publicationDate: "2002-01-01",
+    edition: 1,
+    keywords: [
+      "computer science",
+      "computer systems",
+      "programming",
+      "software",
+      "C",
+      "engineering",
+    ],
+    pages: 978,
+    format: "hardcover",
+    ISBN: "9780130340740",
+    language: "English",
+    programmingLanguage: "C",
+    onlineContent: false,
+    thirdParty: {
+      goodreads: {
+        rating: 4.44,
+        ratingsCount: 1010,
+        reviewsCount: 57,
+        fiveStarRatingCount: 638,
+        oneStarRatingCount: 16,
+      },
+    },
+    highlighted: true,
+  },
+  {
+    title: "Operating System Concepts",
+    author: ["Abraham Silberschatz", "Peter B. Galvin", "Greg Gagne"],
+    imageSrc: "./devbooks.webp",
+    publisher: "John Wiley & Sons",
+    publicationDate: "2004-12-14",
+    edition: 10,
+    keywords: [
+      "computer science",
+      "operating systems",
+      "programming",
+      "software",
+      "C",
+      "Java",
+      "engineering",
+    ],
+    pages: 921,
+    format: "hardcover",
+    ISBN: "9780471694663",
+    language: "English",
+    programmingLanguage: "C, Java",
+    onlineContent: false,
+    thirdParty: {
+      goodreads: {
+        rating: 3.9,
+        ratingsCount: 2131,
+        reviewsCount: 114,
+        fiveStarRatingCount: 728,
+        oneStarRatingCount: 65,
+      },
+    },
+  },
+  {
     title: "Engineering Mathematics",
     author: ["K.A. Stroud", "Dexter J. Booth"],
     imageSrc: "./devbooks.webp",
@@ -372,7 +462,7 @@ const books = [
   {
     title: "Artificial Intelligence: A Modern Approach",
     author: ["Stuart Russell", "Peter Norvig"],
-    iimageSrc: "./devbooks.webp",
+    imageSrc: "./devbooks.webp",
     publisher: "Prentice Hall",
     publicationDate: "2009-12-28",
     edition: 3,
@@ -425,150 +515,95 @@ const books = [
   },
 ];
 
-// Book ishlatiladigan elamantlarni chaqirib olish
-const bookContainer = document.querySelector("#booksContainer");
-const highlited = document.querySelector("#highlight");
-const sortBtn = document.querySelector("#sort");
-const searchInput = document.querySelector("#searchInput");
-const loading = document.querySelector("#loading");
-console.log(bookContainer, highlited, sortBtn, searchInput, loading);
+// DOM elements
+const bookContainer = document.getElementById("booksContainer");
+const highlitedBtn = document.getElementById("highlight");
+const sortBtn = document.getElementById("sort");
+const searchInput = document.getElementById("searchInput");
+const loading = document.getElementById("loading");
 
-// Umumiy barcha booklarni chiqarish
-books.forEach(function (book) {
+// Create book card
+function createBookCard(book) {
   const bookCard = document.createElement("div");
   bookCard.classList.add("book-card");
 
+  const keywordsHTML = book.keywords
+    .map((keyword) => `<span>${keyword}</span>`)
+    .join("");
+
   bookCard.innerHTML = `
-    <img class="image" src='${book.imageSrc}' alt="${book.title}">
-    <h2>${book.title}</h2>
-  <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
-  <p><strong>Publication date: </strong>${book.publicationDate}</p>
-  <p><strong>Edition: </strong>${book.edition}</p>
-  <p><strong>Pages: </strong>${book.pages}</p>
-  <p><strong>Format: </strong>${book.format}</p>
-  <p><strong>Language:</strong>${book.language}</p>
-  <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
-  <p><strong>ISBN: </strong>${book.ISBN}</p>
-  <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(", ")}</p>
-  <p class='rating'><strong>Rating: </strong>${
-    book.thirdParty.goodreads.rating
-  }</p>
-  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
-  `;
+                <img class="book-image" src="${book.imageSrc}" alt="${
+    book.title
+  }">
+                <div class="book-content">
+                    <h2>${book.title}</h2>
+                    <p><strong>Author: </strong>${book.author.join(", ")}</p>
+                    <p><strong>Publisher: </strong>${book.publisher}</p>
+                    <p><strong>Published: </strong>${new Date(
+                      book.publicationDate
+                    ).toLocaleDateString()}</p>
+                    <p><strong>Edition: </strong>${book.edition}</p>
+                    <p><strong>Pages: </strong>${book.pages}</p>
+                    <p><strong>Language: </strong>${book.language}</p>
+                    <div class='keywords'><strong>Keywords: </strong><br>${keywordsHTML}</div>
+                    <p class='rating'><strong>Rating: </strong>${
+                      book.thirdParty.goodreads.rating
+                    } ★</p>
+                    ${
+                      book.highlighted
+                        ? '<p class="highlighted">Featured Book</p>'
+                        : ""
+                    }
+                </div>
+            `;
 
-  bookContainer.appendChild(bookCard);
-  console.log(bookCard);
-});
+  return bookCard;
+}
 
-// Highlited button active bulganda highlated bulgan cardlarni chiqarish
-highlited.addEventListener("click", function () {
+// Display books
+function displayBooks(booksArray) {
+  bookContainer.innerHTML = "";
+  if (booksArray.length === 0) {
+    bookContainer.innerHTML = '<p class="no-results">No books found</p>';
+    return;
+  }
+  booksArray.forEach((book) => {
+    bookContainer.appendChild(createBookCard(book));
+  });
+}
+
+// Initial display
+displayBooks(books);
+
+// Highlighted books filter
+highlitedBtn.addEventListener("click", function () {
   bookContainer.innerHTML = "";
   loading.style.display = "block";
+
   setTimeout(() => {
-    const filterHighlated = books.filter(function (high) {
-      return high.highlighted;
-    });
-    filterHighlated.forEach(function (book) {
-      const bookCard = document.createElement("div");
-      bookCard.classList.add("book-card");
-
-      bookCard.innerHTML = `
-    <img class="image" src='${book.imageSrc}' alt="${book.title}">
-    <h2>${book.title}</h2>
-  <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
-  <p><strong>Publication date: </strong>${book.publicationDate}</p>
-  <p><strong>Edition: </strong>${book.edition}</p>
-  <p><strong>Pages: </strong>${book.pages}</p>
-  <p><strong>Format: </strong>${book.format}</p>
-  <p><strong>Language:</strong>${book.language}</p>
-  <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
-  <p><strong>ISBN: </strong>${book.ISBN}</p>
-  <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(", ")}</p>
-  <p class='rating'><strong>Rating: </strong>${
-    book.thirdParty.goodreads.rating
-  }</p>
-  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
-  `;
-
-      bookContainer.appendChild(bookCard);
-    });
+    const featuredBooks = books.filter((book) => book.highlighted);
+    displayBooks(featuredBooks);
     loading.style.display = "none";
-  }, 1000);
+  }, 500);
 });
 
-// sort button bosilganda elementlarni harflar buyicha saralash
+// Sort by pages
 sortBtn.addEventListener("click", function () {
   bookContainer.innerHTML = "";
   loading.style.display = "block";
 
   setTimeout(() => {
-    const sorted = books.sort(function (a, b) {
-      return b.pages - a.pages;
-    });
-    sorted.forEach(function (book) {
-      const bookCard = document.createElement("div");
-      bookCard.classList.add("book-card");
-
-      bookCard.innerHTML = `
-    <img class="image" src='${book.imageSrc}' alt="${book.title}">
-    <h2>${book.title}</h2>
-  <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
-  <p><strong>Publication date: </strong>${book.publicationDate}</p>
-  <p><strong>Edition: </strong>${book.edition}</p>
-  <p><strong>Pages: </strong>${book.pages}</p>
-  <p><strong>Format: </strong>${book.format}</p>
-  <p><strong>Language:</strong>${book.language}</p>
-  <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
-  <p><strong>ISBN: </strong>${book.ISBN}</p>
-  <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(", ")}</p>
-  <p class='rating'><strong>Rating: </strong>${
-    book.thirdParty.goodreads.rating
-  }</p>
-  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
-  `;
-
-      bookContainer.appendChild(bookCard);
-    });
+    const sortedBooks = [...books].sort((a, b) => b.pages - a.pages);
+    displayBooks(sortedBooks);
     loading.style.display = "none";
-  }, 1000);
+  }, 500);
 });
 
-// search input kitob nomini yozganda chiqaradi
+// Search functionality
 searchInput.addEventListener("input", function () {
-  bookContainer.innerHTML = "";
-  const inpVal = searchInput.value;
-  const filtered = books.filter(function (searchBook) {
-    return searchBook.title
-      .toLocaleLowerCase()
-      .includes(inpVal.toLocaleLowerCase());
-  });
-
-  filtered.forEach(function (book) {
-    const bookCard = document.createElement("div");
-    bookCard.classList.add("book-card");
-
-    bookCard.innerHTML = `
-      <img class="image" src='${book.imageSrc}' alt="${book.title}">
-      <h2>${book.title}</h2>
-    <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
-    <p><strong>Publication date: </strong>${book.publicationDate}</p>
-    <p><strong>Edition: </strong>${book.edition}</p>
-    <p><strong>Pages: </strong>${book.pages}</p>
-    <p><strong>Format: </strong>${book.format}</p>
-    <p><strong>Language:</strong>${book.language}</p>
-    <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
-    <p><strong>ISBN: </strong>${book.ISBN}</p>
-    <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(
-      ", "
-    )}</p>
-    <p class='rating'><strong>Rating: </strong>${
-      book.thirdParty.goodreads.rating
-    }</p>
-    <p>${
-      book.highlighted ? '<span class="highlighted">Highlight</span>' : ""
-    }</p>
-    `;
-
-    bookContainer.appendChild(bookCard);
-  });
+  const searchTerm = searchInput.value.toLowerCase();
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchTerm)
+  );
+  displayBooks(filteredBooks);
 });
