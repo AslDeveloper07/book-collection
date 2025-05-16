@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book store collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Book collections</h1>
+    <div class="controls">
+        <button id="id" class="btn highlight-btn">Highlight</button>
+        <button id="sort" class="btn sort-btn">Saralash</button>
+        <input type="text" id="searchInput" placeholder="Search..." class="search-input">
+    </div>
+
+    <div class="book-container" id="bookscontainer">
+
+    </div>
+    <div id="loading" class="loading" style="display: none;">
+        loading...
+    </div>
+    <div id="booksContainer"></div>
+    <script src="./script.js"></script>
+</body>
+</html>
