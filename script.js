@@ -1,8 +1,5 @@
 "use strict";
-//map da aylanish
-//highlight button filter qilish
-//search input filter qilish
-//page lari buyicha saralash
+
 const books = [
   {
     title: "Algorithms",
@@ -437,10 +434,10 @@ const loading = document.querySelector("#loading");
 console.log(bookContainer, highlited, sortBtn, searchInput, loading);
 
 // Umumiy barcha booklarni chiqarish
-
 books.forEach(function (book) {
   const bookCard = document.createElement("div");
   bookCard.classList.add("book-card");
+
   bookCard.innerHTML = `
     <img class="image" src='${book.imageSrc}' alt="${book.title}">
     <h2>${book.title}</h2>
@@ -456,9 +453,122 @@ books.forEach(function (book) {
   <p class='rating'><strong>Rating: </strong>${
     book.thirdParty.goodreads.rating
   }</p>
-  <p>${book.highlighted ? '<span class="highlight">Highlight</span>' : ""}</p>
+  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
   `;
 
   bookContainer.appendChild(bookCard);
   console.log(bookCard);
+});
+
+// Highlited button active bulganda highlated bulgan cardlarni chiqarish
+highlited.addEventListener("click", function () {
+  bookContainer.innerHTML = "";
+  loading.style.display = "block";
+  setTimeout(() => {
+    const filterHighlated = books.filter(function (high) {
+      return high.highlighted;
+    });
+    filterHighlated.forEach(function (book) {
+      const bookCard = document.createElement("div");
+      bookCard.classList.add("book-card");
+
+      bookCard.innerHTML = `
+    <img class="image" src='${book.imageSrc}' alt="${book.title}">
+    <h2>${book.title}</h2>
+  <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
+  <p><strong>Publication date: </strong>${book.publicationDate}</p>
+  <p><strong>Edition: </strong>${book.edition}</p>
+  <p><strong>Pages: </strong>${book.pages}</p>
+  <p><strong>Format: </strong>${book.format}</p>
+  <p><strong>Language:</strong>${book.language}</p>
+  <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
+  <p><strong>ISBN: </strong>${book.ISBN}</p>
+  <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(", ")}</p>
+  <p class='rating'><strong>Rating: </strong>${
+    book.thirdParty.goodreads.rating
+  }</p>
+  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
+  `;
+
+      bookContainer.appendChild(bookCard);
+    });
+    loading.style.display = "none";
+  }, 1000);
+});
+
+// sort button bosilganda elementlarni harflar buyicha saralash
+sortBtn.addEventListener("click", function () {
+  bookContainer.innerHTML = "";
+  loading.style.display = "block";
+
+  setTimeout(() => {
+    const sorted = books.sort(function (a, b) {
+      return b.pages - a.pages;
+    });
+    sorted.forEach(function (book) {
+      const bookCard = document.createElement("div");
+      bookCard.classList.add("book-card");
+
+      bookCard.innerHTML = `
+    <img class="image" src='${book.imageSrc}' alt="${book.title}">
+    <h2>${book.title}</h2>
+  <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
+  <p><strong>Publication date: </strong>${book.publicationDate}</p>
+  <p><strong>Edition: </strong>${book.edition}</p>
+  <p><strong>Pages: </strong>${book.pages}</p>
+  <p><strong>Format: </strong>${book.format}</p>
+  <p><strong>Language:</strong>${book.language}</p>
+  <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
+  <p><strong>ISBN: </strong>${book.ISBN}</p>
+  <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(", ")}</p>
+  <p class='rating'><strong>Rating: </strong>${
+    book.thirdParty.goodreads.rating
+  }</p>
+  <p>${book.highlighted ? '<span class="highlighted">Highlight</span>' : ""}</p>
+  `;
+
+      bookContainer.appendChild(bookCard);
+    });
+    loading.style.display = "none";
+  }, 1000);
+});
+
+// search input kitob nomini yozganda chiqaradi
+searchInput.addEventListener("input", function () {
+  bookContainer.innerHTML = "";
+  const inpVal = searchInput.value;
+  const filtered = books.filter(function (searchBook) {
+    return searchBook.title
+      .toLocaleLowerCase()
+      .includes(inpVal.toLocaleLowerCase());
+  });
+
+  filtered.forEach(function (book) {
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("book-card");
+
+    bookCard.innerHTML = `
+      <img class="image" src='${book.imageSrc}' alt="${book.title}">
+      <h2>${book.title}</h2>
+    <p><strong>Publisher: </strong>${book.author.join(", ")}</p>
+    <p><strong>Publication date: </strong>${book.publicationDate}</p>
+    <p><strong>Edition: </strong>${book.edition}</p>
+    <p><strong>Pages: </strong>${book.pages}</p>
+    <p><strong>Format: </strong>${book.format}</p>
+    <p><strong>Language:</strong>${book.language}</p>
+    <p><strong>ProgrammingLanguage: </strong>${book.programmingLanguage}</p>
+    <p><strong>ISBN: </strong>${book.ISBN}</p>
+    <p class='keywords'><strong>Keywords: </strong>${book.keywords.join(
+      ", "
+    )}</p>
+    <p class='rating'><strong>Rating: </strong>${
+      book.thirdParty.goodreads.rating
+    }</p>
+    <p>${
+      book.highlighted ? '<span class="highlighted">Highlight</span>' : ""
+    }</p>
+    `;
+
+    bookContainer.appendChild(bookCard);
+  });
 });
