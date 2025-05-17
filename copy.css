@@ -45,6 +45,7 @@
     border: 1px solid rgba(151, 151, 151, 0.664);
     min-width: 250px;
     background-color: rgb(48, 48, 48);
+    color: white;
 }
 
 .search-input::placeholder {
@@ -148,7 +149,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     color: rgb(59, 59, 59);
-    /* text-align: start; */
+    text-align: center;
 }
 /* Loader ishlashi uchun style  */
 .loading {
