@@ -1,19 +1,15 @@
-body {
+   /* Body uchun style */
+   body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #fff;
+    background-color: #1f1f1f;
     color: #333;
     margin: 0;
     padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #0056b3;
-    margin-bottom: 20px;
-}
 
-/* Control buttons and input */
+
+/* control highlited sort button va input style  */
 .controls {
     display: flex;
     justify-content: center;
@@ -22,70 +18,24 @@ h1 {
     flex-wrap: wrap;
 }
 
-.highlight-btn, .sort-btn {
-    background-color: #0056b3;
-    color: white;
+.highlight-btn {
+    background-color:#0af2fa;
+    color: black;
     border: none;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 7px;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
 }
 
-/* Highlight button hover effect */
-.highlight-btn:hover {
-    background-color: #ff6b6b;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-}
-
-.highlight-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-    z-index: -1;
-    transition: transform 0.3s ease;
-    transform: scaleX(0);
-    transform-origin: right;
-}
-
-.highlight-btn:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Sort button hover effect */
-.sort-btn:hover {
-    background-color: #4ecdc4;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
-}
-
-.sort-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #4ecdc4, #88dacf);
-    z-index: -1;
-    transition: transform 0.3s ease;
-    transform: scaleX(0);
-    transform-origin: right;
-}
-
-.sort-btn:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+.sort-btn {
+    background-color:#0af2fa;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .search-input {
@@ -94,19 +44,19 @@ h1 {
     outline: none;
     border: 1px solid rgba(151, 151, 151, 0.664);
     min-width: 250px;
-    transition: all 0.3s ease;
+    background-color: rgb(48, 48, 48);
 }
 
 .search-input::placeholder {
-    color: #888;
+    color: #707070;
 }
 
 .search-input:focus {
-    border-color: #007bff;
-    box-shadow: 0px 0px 5px 0px #007bff;
+    border-color: #0af2fa;
+    box-shadow: 0px 0px 5px 0px #0af2fa;
 }
 
-/* Books container */
+/* container uchun style */
 .books-container-wrapper {
     max-width: 1400px;
     margin: 0 auto;
@@ -119,16 +69,16 @@ h1 {
     gap: 30px;
 }
 
-/* Book Card */
+/* Kitob card uchun style  */
 .book-card {
-    background: #fff;
+    background: #363636;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 680px;
 }
 
 .book-card:hover {
@@ -153,19 +103,19 @@ h1 {
 .book-card h2 {
     font-size: 1.3rem;
     margin: 0 0 10px 0;
-    color: #0056b3;
+    color:#0af2fa;
 }
 
 .book-card p {
     font-size: 0.9rem;
     margin: 5px 0;
-    color: #555;
+    color: white;
     line-height: 1.4;
 }
 
 .book-card .keywords {
     margin: 10px 0;
-    color: #666;
+    color: #0af2fa;
     font-size: 0.85rem;
     display: flex;
     flex-wrap: wrap;
@@ -177,29 +127,33 @@ h1 {
     padding: 3px 8px;
     border-radius: 15px;
     font-size: 0.75rem;
+    color: black;
 }
 
 .book-card .rating {
     margin: 10px 0;
     font-size: 0.9rem;
-    color: #28a745;
+    color: #0af2fa;
     font-weight: bold;
+}
+.book-card .rating span{
+    color: #ffe100;
 }
 
 .book-card .highlighted {
+    width: 100px;
     margin-top: auto;
     font-size: 0.9rem;
-    background-color: #fff8c6;
+    background-color: #ffe100;
     padding: 5px 10px;
     border-radius: 5px;
-    color: #333;
-    text-align: center;
+    color: rgb(59, 59, 59);
+    /* text-align: start; */
 }
-
-/* Loading spinner */
+/* Loader ishlashi uchun style  */
 .loading {
     font-size: 20px;
-    color: #007bff;
+    color: #0af2fa;
     text-align: center;
     padding: 20px;
     font-weight: bold;

@@ -600,12 +600,12 @@ function createBookCard(book) {
                     <p><strong>Pages: </strong>${book.pages}</p>
                     <p><strong>Language: </strong>${book.language}</p>
                     <div class='keywords'><strong>Keywords: </strong><br>${keywordsHTML}</div>
-                    <p class='rating'><strong>Rating: </strong>${
+                    <p class='rating'><strong>Rating: </strong> <span>${
                       book.thirdParty.goodreads.rating
-                    } ★</p>
+                    } <br> ★★★★★</span></p>
                     ${
                       book.highlighted
-                        ? '<p class="highlighted">Featured Book</p>'
+                        ? '<p class="highlighted">highlighted</p>'
                         : ""
                     }
                 </div>
@@ -629,7 +629,7 @@ function displayBooks(booksArray) {
 // Initial display
 displayBooks(books);
 
-// Highlighted books filter
+// Highlighted button bosilganada filter qilish uchun
 highlitedBtn.addEventListener("click", function () {
   bookContainer.innerHTML = "";
   loading.style.display = "block";
@@ -641,7 +641,7 @@ highlitedBtn.addEventListener("click", function () {
   }, 500);
 });
 
-// Sort by pages
+// Sort button bosilganda saralab berish uchun
 sortBtn.addEventListener("click", function () {
   bookContainer.innerHTML = "";
   loading.style.display = "block";
@@ -653,7 +653,7 @@ sortBtn.addEventListener("click", function () {
   }, 500);
 });
 
-// Search functionality
+// Search input ishlashi uchun
 searchInput.addEventListener("input", function () {
   const searchTerm = searchInput.value.toLowerCase();
   const filteredBooks = books.filter((book) =>
