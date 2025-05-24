@@ -30,6 +30,5 @@ All book data is fetched dynamically from an external **API**, and each book is 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/AslDeveloper07/kun.uz-clone.git
-
+https://github.com/AslDeveloper07/book-collection.git
 
